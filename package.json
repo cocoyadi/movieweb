@@ -1,0 +1,43 @@
+{
+  "name": "movieweb",
+  "version": "1.0.0",
+  "description": "a web for movie and relative comments",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.15.4",
+    "jade": "^1.11.0",
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1",
+    "mongoose": "^4.11.6",
+    "serve-static": "^1.12.4",
+    "underscore": "^1.8.3",
+    "bower": "^1.8.0"
+  },
+  "devDependencies": {
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-nodemon": "^0.4.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cocoyadi/movieweb.git"
+  },
+  "keywords": [
+    "movie",
+    "web",
+    "nodejs",
+    "mongodb"
+  ],
+  "author": "yadicoco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cocoyadi/movieweb/issues"
+  },
+  "homepage": "https://github.com/cocoyadi/movieweb#readme"
+}
