@@ -4,6 +4,26 @@
  */
 var User=require("../modeljs/user");
 
+// midware for user 登录用的中间件
+//需要登录状态(这里对书写的规范性要求非常严格)
+exports.signinRequired = function(req,res,next){
+    var user = req.session.user;
+    if(!user){
+        return res.redirect('/signin');
+    }
+    next();
+};
+
+
+//需要管理员状态
+exports.adminRequired = function(req,res,next){
+    var user = req.session.user;
+    if(user.role <= 10){
+        return res.redirect('/signin');
+    }
+    next();
+};
+
 //展示注册页面
 exports.showSignup=function(req,res){
     res.render("signup",{
@@ -46,10 +66,12 @@ exports.signin= function(req,res){
     var _user=req.body.user;
     var name=_user.name;
     var password=_user.password;
+    //去users数据库查询用户名为name的数据，如果有就执行比对密码的方法
     User.findOne({name:name},function(err,user){
         if(err){
             console.log(err)
         }
+        //用户名不存在时，跳转到首页
         if(!user){
             return res.redirect("/showSignup")
         }
@@ -92,22 +114,8 @@ exports.userlist=function(req,res){
         })
     })
 
-    //需要登录状态
-    exports.signinRequired = function(req,res,next){
-        var user=req.session.user;
-        if(user){
-            return res.redirect("/showSignin");
-        }
-        next();
-    }
 
-    //需要管理员状态
-    exports.adminRequired = function(req,res,next){
-        var user=req.session.user;
-        if(!user||user.role<50){
-            return res.redirect("/showSignin");
-        }
-        next();
-    }
+
+
 
 }

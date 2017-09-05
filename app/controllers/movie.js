@@ -4,6 +4,8 @@
  */
 
 var Movie=require("../modeljs/movie");
+var Comment=require("../modeljs/comment");
+
 //替换旧的字段
 var _=require("underscore");
 
@@ -13,11 +15,18 @@ exports.detail=function(req,res){
     //这里面res渲染了两次，是不被允许的，
     // 一次请求只能使用一次res.render(渲染，为了以防外一，建议res一定要加上return)
     Movie.findById(id,function(err,movie){
-        //渲染detail页面
-        res.render("detail",{
-            title:movie.title,
-            movie:movie
-        })
+        //获取电影评论(包括评论的用户信息)
+        Comment
+            .find({movie:id})
+            .populate('from','name')
+            .exec(function(err,comments){
+                //渲染detail页面
+                res.render("detail",{
+                    title:movie.title,
+                    movie:movie,
+                    comments:comments
+                })
+            })
     })
 }
 
